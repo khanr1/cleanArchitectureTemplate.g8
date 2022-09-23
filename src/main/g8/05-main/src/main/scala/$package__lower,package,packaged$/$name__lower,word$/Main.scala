@@ -1,7 +1,10 @@
 package $package;format="lower,package"$
 package $name;format="lower,word"$
 
-object Main extends App{
-  println("Hello World")
+import cats.effect.{IO,IOApp}
+
+object Main extends IOApp.Simple{
+  val run = IO.println("Hello, World!")
+  
 }
  

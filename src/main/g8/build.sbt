@@ -1,7 +1,8 @@
-import Util._
+import Util.*
+import Dependencies.*
 
 ThisBuild / version := "0.0.1-SNAPSHOT"
-ThisBuild / scalaVersion := "$scala_version$"
+ThisBuild / scalaVersion := "3.2.0"
 
 //Clean Architecture Multibuild
 
@@ -29,6 +30,12 @@ lazy val core =
   project
     .in(file("02-core"))
     .dependsOn(domain % Cctt)
+    .settings(
+      libraryDependencies ++= Seq(
+        Library.cats,
+        Library.catsEffect
+      )
+    )
 
 //Make sure to translate request model (web request; CLI) into something our core can understand.
 
@@ -51,7 +58,18 @@ lazy val main =
     .in(file("05-main"))
     .dependsOn(delivery % Cctt)
     .dependsOn(core % Cctt)
+    .settings(testDependencies)
 
 //Some aliases
 addCommandAlias("run", "main/run")
 addCommandAlias("reStart", "main/reStart")
+
+//Testing library
+lazy val testDependencies = Seq(
+  testFrameworks += new TestFramework("weaver.framework.CatsEffect"),
+  libraryDependencies ++= Seq(
+    Library.weaverCats,
+    Library.weaverDiscipline,
+    Library.weaverScalaCheck
+  )
+)
