@@ -2,7 +2,7 @@ import Util.*
 import Dependencies.*
 
 ThisBuild / version := "0.0.1-SNAPSHOT"
-ThisBuild / scalaVersion := "3.2.0"
+ThisBuild / scalaVersion := "$scala_version$"
 
 //Clean Architecture Multibuild
 
@@ -33,7 +33,8 @@ lazy val core =
     .settings(
       libraryDependencies ++= Seq(
         Library.cats,
-        Library.catsEffect
+        Library.catsEffect,
+        Library.iron
       )
     )
 
