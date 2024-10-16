@@ -1,6 +1,8 @@
 import MyUtil.*
 import Dependencies.*
 
+import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport.* //needed for scalajs
+
 ThisBuild / version := "0.0.1-SNAPSHOT"
 ThisBuild / scalaVersion := "$scala_version$"
 
@@ -20,8 +22,42 @@ lazy val `$name;format="norm"$` =
 //be modeled in this folder.
 
 lazy val domain =
-  project
+  crossProject(JSPlatform, JVMPlatform)
+    .crossType(CrossType.Pure)
     .in(file("01-domain"))
+    .settings(testDependencies)
+    .jvmSettings(
+      libraryDependencies ++= Seq(
+        Library.iron.value,
+        Library.ironScalaC.value,
+        Library.ironCat.value,
+        Library.ironCirce.value,
+        Library.cats.value,
+        Library.kitten.value,
+        Library.monocle.value,
+        Library.squants.value,
+        Library.circe.value,
+        Library.circeGeneric.value,
+        Library.circeParser.value
+      )
+    )
+    .jsSettings(
+      test := {},
+      scalacOptions := List("-scalajs"),
+      libraryDependencies ++= Seq(
+        Library.iron.value,
+        Library.ironScalaC.value,
+        Library.ironCat.value,
+        Library.ironCirce.value,
+        Library.cats.value,
+        Library.kitten.value,
+        Library.monocle.value,
+        Library.squants.value,
+        Library.circe.value,
+        Library.circeGeneric.value,
+        Library.circeParser.value
+      )
+    )
 
 //Core contains our application logic. In our previous example, creating and account
 //or more generally CRUD.
@@ -32,9 +68,7 @@ lazy val core =
     .dependsOn(domain % Cctt)
     .settings(
       libraryDependencies ++= Seq(
-        Library.cats,
-        Library.catsEffect,
-        Library.iron
+        Library.catsEffect.value
       )
     )
 
