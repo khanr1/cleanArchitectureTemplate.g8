@@ -73,7 +73,7 @@ lazy val domain =
 lazy val core =
   project
     .in(file("02-core"))
-    .dependsOn(domain % Cctt)
+    .dependsOn(domain.jvm % Cctt)
     .settings(
       libraryDependencies ++= Seq(
         Library.catsEffect.value
