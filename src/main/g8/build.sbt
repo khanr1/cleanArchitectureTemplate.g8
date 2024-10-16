@@ -110,7 +110,7 @@ lazy val frontend =
     .enablePlugins(ScalaJSPlugin)
     .settings(scalaJSUseMainModuleInitializer := true)
     .settings(
-      libraryDependencies ++= Seq(-Library.laminar.value, -)
+      libraryDependencies ++= Seq(Library.laminar.value)
     )
 //path where the generated scalaJS files goes
 val jsPath = "04-delivery/src/main/resources"
