@@ -2,6 +2,10 @@
 .bloop
 .bsp
 
+#environment
+.env
+.envrc
+
 # metals
 .metals
 project/metals.sbt
