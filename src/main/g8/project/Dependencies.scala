@@ -17,6 +17,9 @@ object Dependencies {
     val laminar = "$laminar_version$"
     val chimney = "$chimney_version$"
 
+    //config
+    val ciris = "$ciris_version$"
+
     // test
     val scalacheck = "$scalacheck_version$"
     val weaver = "$weaver_version$"
@@ -62,6 +65,9 @@ object Dependencies {
     val skunkCirce = "org.tpolecat" %% "skunk-circe" % Version.skunk
     val skunkCore = "org.tpolecat" %% "skunk-core" % Version.skunk
     val squants = Def.setting("org.typelevel" %%% "squants" % Version.squants)
+
+    // config library
+    val ciris = "is.cir" %% "ciris" % Version.ciris
 
     // Testing library
     val weaverCats = "com.disneystreaming" %% "weaver-cats" % Version.weaver
