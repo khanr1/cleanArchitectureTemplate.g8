@@ -37,7 +37,7 @@ Use three terminals so that each long-running task can keep watching for changes
 - **Terminal A (Scala.js hot compilation)**  
   From the project root run:
   ```bash
-  sbt ~fastOptCompileCopy
+  sbt ~fastLinkJS
   ```
   This watches the Scala.js sources and copies the generated bundle into the backend resources so the UI always serves the latest code.
 
@@ -69,7 +69,7 @@ Whenever you edit backend code, the sbt sessions recompile and restart automatic
 When you want an optimized Scala.js bundle for packaging, run:
 
 ```bash
-sbt fullOptCompileCopy
+sbt fullLinkJS
 ```
 
 This writes the minimized frontend bundle (`frontend.js`) into `04-delivery/src/main/resources`, ready to be served by the backend alongside the API. For static assets managed by Vite (images, styles, etc.), run `npm run build` inside `06-frontend` to populate the `dist/` folder before creating your deployment artefacts.
