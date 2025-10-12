@@ -64,12 +64,3 @@ Whenever you edit backend code, the sbt sessions recompile and restart automatic
 - `sbt frontend/test` – placeholder for frontend JVM tests (add your own suites under `06-frontend/src/test`).
 - `sbt run` – runs the backend once (no hot-reload).
 
-## Building optimized assets
-
-When you want an optimized Scala.js bundle for packaging, run:
-
-```bash
-sbt fullLinkJS
-```
-
-This writes the minimized frontend bundle (`frontend.js`) into `04-delivery/src/main/resources`, ready to be served by the backend alongside the API. For static assets managed by Vite (images, styles, etc.), run `npm run build` inside `06-frontend` to populate the `dist/` folder before creating your deployment artefacts.
