@@ -40,6 +40,15 @@ build/
 .DS_Store
 
 
+# node / frontend tooling
+node_modules/
+06-frontend/node_modules/
+06-frontend/dist/
+06-frontend/.vite/
+
+# scala.js frontend build artifacts
+06-frontend/target/
+
 # other?
 .cache-main
 .history

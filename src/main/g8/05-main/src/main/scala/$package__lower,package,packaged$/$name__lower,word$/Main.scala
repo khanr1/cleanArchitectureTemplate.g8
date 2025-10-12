@@ -1,10 +1,12 @@
 package $package;format="lower,package"$
 package $name;format="lower,word"$
 
-import cats.effect.{IO,IOApp}
+import cats.effect.{IO, IOApp}
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 
-object Main extends IOApp.Simple{
-  val run = IO.println("Hello, World!")
-  
-}
- 
+/** Application entry point wiring logging and delegating to [[Program]]. */
+object Main extends IOApp.Simple:
+  given logger: Logger[IO] = Slf4jLogger.getLogger
+
+  override def run: IO[Unit] = Program.make[IO]

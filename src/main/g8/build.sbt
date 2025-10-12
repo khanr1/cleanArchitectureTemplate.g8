@@ -86,6 +86,13 @@ lazy val delivery =
   project
     .in(file("03-delivery"))
     .dependsOn(core % Cctt)
+    .settings(
+      libraryDependencies ++= Seq(
+        Library.htt4sCirce.value,
+        Library.htt4sDsl.value,
+        Library.htt4sEmberServer.value
+      )
+    )
 
 //How our data are stored
 
@@ -103,12 +110,31 @@ lazy val main =
     .dependsOn(persistence % Cctt)
     .settings(testDependencies)
 
+import org.scalajs.linker.interface.ModuleSplitStyle
+
 lazy val frontend =
   project
     .in(file("06-frontend"))
     .dependsOn(domain.js)
     .enablePlugins(ScalaJSPlugin)
-    .settings(scalaJSUseMainModuleInitializer := true)
+    .settings(
+      scalaJSUseMainModuleInitializer := true,
+      /* Configure Scala.js to emit modules in the optimal way to
+       * connect to Vite's incremental reload.
+       * - emit ECMAScript modules
+       * - emit as many small modules as possible for classes in the "livechart" package
+       * - emit as few (large) modules as possible for all other classes
+       *   (in particular, for the standard library)
+       */
+      scalaJSLinkerConfig ~= {
+        _.withModuleKind(ModuleKind.ESModule)
+          .withModuleSplitStyle(
+            ModuleSplitStyle.SmallModulesFor(
+              List("$name$")
+            )
+          )
+      }
+    )
     .settings(
       libraryDependencies ++= Seq(Library.laminar.value)
     )
